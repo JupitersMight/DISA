@@ -1,5 +1,5 @@
 import pandas as pd
-from DISA.discriminative_score import DISA
+from DISA.DISA import DISA
 
 
 data = pd.read_csv("..\\Example\\yeast.csv")

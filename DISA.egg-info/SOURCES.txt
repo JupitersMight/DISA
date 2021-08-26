@@ -1,0 +1,9 @@
+LICENSE
+README.md
+setup.py
+DISA/DISA.py
+DISA/__init__.py
+DISA.egg-info/PKG-INFO
+DISA.egg-info/SOURCES.txt
+DISA.egg-info/dependency_links.txt
+DISA.egg-info/top_level.txt

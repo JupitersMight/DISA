@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="DISA-JupitersMight",
+    name="DISA",
     version="0.0.1",
     author="L. Alexandre, R.S. Costa, R. Henriques",
     author_email="leonardoalexandre@tecnico.ulisboa.pt",

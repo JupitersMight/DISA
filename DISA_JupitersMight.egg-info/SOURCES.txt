@@ -1,8 +1,8 @@
 LICENSE
 README.md
 setup.py
+DISA/DISA.py
 DISA/__init__.py
-DISA/discriminative_score.py
 DISA_JupitersMight.egg-info/PKG-INFO
 DISA_JupitersMight.egg-info/SOURCES.txt
 DISA_JupitersMight.egg-info/dependency_links.txt
