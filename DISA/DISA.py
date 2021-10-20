@@ -2,15 +2,13 @@ import pandas as pd
 import numpy as np
 import math
 from scipy.stats import hypergeom
-from decimal import Decimal
-import matplotlib.pyplot as plt
-from scipy.stats import norm
 from prettytable import PrettyTable
+from scipy.special import betainc
 
 
 class DISA:
     """
-        A class to hold the subspaces inputted for their analysis
+        A class to analyse the subspaces inputted for their analysis
 
         Parameters
         ----------
@@ -40,7 +38,6 @@ class DISA:
         patterns : dict
             Contains all the auxiliary information needed by the metrics
     """
-
     def __init__(self, data, patterns, outcome, border_values=False):
         self.border_values = border_values
         self.data = data
@@ -64,6 +61,11 @@ class DISA:
         self.patterns = []
         for i in range(len(patterns)):
             column_values = patterns[i]["column_values"] if "column_values" in list(patterns[i].keys()) else None
+            if column_values is not None:
+                col_values_counter = 0
+                for value in column_values:
+                    column_values[col_values_counter] = float(value)
+                    col_values_counter += 1
             patterns[i]["lines"] = list(map(int, patterns[i]["lines"]))
             outcome_to_assess = self.y_value
 
@@ -79,9 +81,10 @@ class DISA:
             # If no noise inputted then all column contain 0 noise
             noise = patterns[i]["noise"] if "noise" in list(patterns[i].keys()) else None
             if noise is None:
-                noise = []
+                noise_aux = []
                 for col in patterns[i]["columns"]:
-                    noise.append(0)
+                    noise_aux.append(0)
+                noise = noise_aux
 
             # If no type then assume its a constant subspace
             type = patterns[i]["type"] if "type" in list(patterns[i].keys()) else "Constant"
@@ -228,7 +231,6 @@ class DISA:
             all_confidence = self.all_confidence(i)
             lift = self.lift(i)
             standardisation_of_lift = self.standardisation_of_lift(i)
-            star_standardisation_of_lift = self.star_standardisation_of_lift(i)
             collective_strength = self.collective_strength(i)
             cosine = self.cosine(i)
             interestingness = self.interestingness(i)
@@ -286,7 +288,6 @@ class DISA:
                 "All-Confidence": all_confidence,
                 "Lift": lift,
                 "Standardised Lift": standardisation_of_lift,
-                "Standardised Lift (with correction)": star_standardisation_of_lift,
                 "Collective Strength": collective_strength,
                 "Cosine": cosine,
                 "Interestingness": interestingness,
@@ -336,18 +337,16 @@ class DISA:
         if print_table:
             columns = ['Metric']
             for i in range(len(self.patterns)):
-                columns.append('P'+str(i))
+                columns.append('P'+str(i+1))
             t = PrettyTable(columns)
             for metric in list(dict[0].keys()):
                 line = [metric]
                 for x in range(len(self.patterns)):
-                    line.append(str(round(dict[x][metric], 2)))
+                    line.append(str(dict[x][metric]))
                 t.add_row(line)
             print(t)
 
         return dict
-
-
 
     def information_gain(self, i):
         """ Calculates information gain of the subspace
@@ -388,7 +387,6 @@ class DISA:
         three=((self.patterns[i]["Cx_y"]-(self.patterns[i]["Cx"]*self.patterns[i]["C_y"]/self.size_of_dataset))**2)/(self.patterns[i]["Cx"]*self.patterns[i]["C_y"]/self.size_of_dataset)
         four=((self.patterns[i]["C_x_y"]-(self.patterns[i]["C_x"]*self.patterns[i]["C_y"]/self.size_of_dataset))**2)/(self.patterns[i]["C_x"]*self.patterns[i]["C_y"]/self.size_of_dataset)
         return one + two + three + four
-
 
     def gini_index(self, i):
         """ Calculates the gini index metric of a given subspace
@@ -491,31 +489,6 @@ class DISA:
         omega = max(self.patterns[i]["X"] + self.patterns[i]["Y"] - 1, 1/self.size_of_dataset)
         v = 1 / max(self.patterns[i]["X"], self.patterns[i]["Y"])
         return (self.lift(i)-omega)/(v-omega)
-
-    def star_standardisation_of_lift(self, i):
-        """ Calculates the alternative standardized version of lift metric of a given subspace
-        https://doi.org/10.1016/j.csda.2008.03.013
-        Parameters
-        ----------
-        i : int
-            Index of subspace.
-        Returns
-        -------
-        metric : float
-            Alternative standardized version of lift of subspace
-        """
-        v = 1 / max(self.patterns[i]["X"], self.patterns[i]["Y"])
-        s = v / self.size_of_dataset
-        omega = max(
-            max((self.patterns[i]["X"] + self.patterns[i]["Y"] - 1), 1/self.size_of_dataset)/(self.patterns[i]["X"] * self.patterns[i]["Y"]),
-            (4*s/((1+s)**2)),
-            (s/(self.patterns[i]["X"] * self.patterns[i]["Y"])),
-            self.confidence(i)/self.patterns[i]["Y"]
-        )
-        if v - omega == 0:
-            return math.inf
-        else:
-            return (self.lift(i)-omega)/(v-omega)
 
     def collective_strength(self, i):
         """ Calculates the collective strength metric of a given subspace
@@ -910,11 +883,7 @@ class DISA:
         metric : float
             Goodman-kruskal lambda of subspace
         """
-        one = max(self.patterns[i]["Cxy"], self.patterns[i]["C_xy"]) + max(self.patterns[i]["Cx_y"], self.patterns[i]["C_x_y"])
-        two = max(self.patterns[i]["Cxy"], self.patterns[i]["Cx_y"]) + max(self.patterns[i]["C_xy"], self.patterns[i]["C_x_y"])
-        three = max(self.patterns[i]["Cy"], self.patterns[i]["C_y"])
-        four = max(self.patterns[i]["Cx"], self.patterns[i]["C_x"])
-        return (one + two - three - four) / (2*self.size_of_dataset - three - four)
+        return ((1-self.patterns[i]["XY"])-(1-self.patterns[i]["Y"]))/(1-self.patterns[i]["XY"])
 
     def least_contradiction(self, i):
         """ Calculates the least contradiction metric of a given subspace
@@ -1058,6 +1027,8 @@ class DISA:
         metric : float
             Relative risk of subspace
         """
+        if self.patterns[i]["_XY"] == 0:
+            return math.inf
         return (self.patterns[i]["XY"]/self.patterns[i]["X"])/(self.patterns[i]["_XY"]/self.patterns[i]["_X"])
 
     def rule_power_factor(self, i):
@@ -1281,12 +1252,11 @@ class DISA:
                 for item in counts:
                     if self.border_values and (float(column_value) == item or float(column_value)+0.5 == item or float(column_value)-0.5 == item):
                         counter += 1
-                    elif float(column_value) - self.patterns[i]["noise"][col_pos] <= item <= float(column_value) + self.patterns[i]["noise"][col_pos]:
+                    elif not self.border_values and ((float(column_value) - self.patterns[i]["noise"][col_pos]) <= item <= (float(column_value) + self.patterns[i]["noise"][col_pos])):
                         counter += 1
 
                 p = p * (counter/self.size_of_dataset)
                 col_pos += 1
-            return 1 - binomial_cumulative(self.patterns[i]["Cx"], p, self.size_of_dataset)
         elif self.patterns[i]["type"] == "Additive" or self.patterns[i]["type"] == "Multiplicative":
             for column in self.patterns[i]["columns"]:
                 uniques_col = self.patterns[i]["x_data"][column].unique()
@@ -1304,9 +1274,8 @@ class DISA:
                                 counter += 1
 
                 p = p * (counter / self.size_of_dataset)
-            return 1 - binomial_cumulative(self.patterns[i]["Cx"], p, self.size_of_dataset)
         elif self.patterns[i]["type"] == "Order-Preserving":
-            p = float(Decimal(1.0) / Decimal(math.factorial(self.patterns[i]["nr_cols"])))
+            p = 0 #float(Decimal(1.0) / Decimal(math.factorial(self.patterns[i]["nr_cols"])))
             counter = 0
             for column in self.data.columns:
                 for row in self.data[column]:
@@ -1321,7 +1290,7 @@ class DISA:
                 if aux_counter > self.patterns[i]["nr_cols"]:
                     row_counter += 1
             percentage_missings = counter // (len(self.data.columns)*self.size_of_dataset)
-            return 1 - binomial_cumulative(self.patterns[i]["Cx"], p, row_counter*percentage_missings)
+        return betainc(self.patterns[i]["Cx"], self.size_of_dataset, p)
 
     def FleBiC_score(self, i):
         """ Calculates the score considered by FleBiC regarding subspace importance
@@ -1364,22 +1333,7 @@ class DISA:
         c= (m2**2)/(std2**2) - (m1**2)/(std1**2) + np.log((std2**2)/(std1**2))
         intercep_points = np.roots([a, b, c])
         idxs = sorted(intercep_points)
-        if len(idxs) == 1 or idxs[0] == idxs[1]:
-            return [idxs[0] - std1*2, idxs[0] + std1*2]
-        else:
-            return [idxs[0], idxs[1]]
-
-
-def binomial_cumulative(x, p, n):
-    sum = Decimal(0)
-    for i in range(x+1):
-        comb1 = math.factorial(i)*math.factorial(n-i)
-        comb2 = math.factorial(n)
-        part1 = comb2 // comb1
-        part2 = (p**i)
-        part3 = ((1-p)**(n-i))
-        sum = sum + (Decimal(part1) * Decimal(part2) * Decimal(part3))
-    return float(sum)
+        return [idxs[0], idxs[1]]
 
 
 def is_number(s):
