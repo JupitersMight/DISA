@@ -576,8 +576,7 @@ class DISA:
 
     def casual_confidence(self, i):
         """ Calculates casual confidence metric of a given subspace
-            Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts
-            author : Yves Kodratoff
+        https://doi.org/10.1007/3-540-44673-7_1
         Parameters
         ----------
         i : int
@@ -591,8 +590,7 @@ class DISA:
 
     def casual_support(self, i):
         """ Calculates the casual support metric of a given subspace
-            Comparing machine learning and knowledge discovery in databases: An application to knowledge discovery in texts
-            author : Yves Kodratoff
+        https://doi.org/10.1007/3-540-44673-7_1
         Parameters
         ----------
         i : int
