@@ -120,4 +120,6 @@ FleBiC Score: https://doi.org/10.1016/j.patcog.2021.107900
 
 ## Authors
 
-DISA was developed by L. Alexandre (leonardoalexandre@tecnico.ulisboa.pt), R.S. Costa (rs.costa@fct.unl.pt) and R. Henriques
+DISA was developed by:
+
+L. Alexandre (leonardoalexandre@tecnico.ulisboa.pt), R.S. Costa (rs.costa@fct.unl.pt) and R. Henriques
