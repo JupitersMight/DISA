@@ -2,6 +2,10 @@
 
 DISA (**D**iscriminative and **I**nformative **S**ubspace **A**nalysis), a software package in Python (v3.7) capable of assessing patterns with numerical outputs by statistically testing the correlation gain of the subspace against the overall space
 
+## Examples
+
+Two examples on how to use DISA are provided in the folder "Example", one using the yeast dataset the other using the WPBC dataset. Inside each of the datasets corresponding folder you will find a set of files and a folder. The python and jupyter notebook files provide the code to analyse patterns using DISA. The patterns are contained in the .txt files and the processed datasets in both the .csv and .arff files.
+
 ## Metrics
 
 A list of all the implemented metrics in DISA and the corresponding DOI.
