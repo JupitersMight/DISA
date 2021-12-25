@@ -8,7 +8,7 @@ Two examples on how to use DISA are provided in the folder "Example", one using 
 
 ## Metrics
 
-A list of all the implemented metrics in DISA and the corresponding DOI.
+A list of all the implemented metrics in DISA and the corresponding DOI (some but not all of these metrics are futher explained in https://mhahsler.github.io/arules/docs/measures).
 
 Information Gain: https://doi.org/10.1016/S0306-4379(03)00072-3 
 
