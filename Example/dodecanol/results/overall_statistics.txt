@@ -1,0 +1,233 @@
+dodecanol |L| = 3 quality = 70%:
+
+Total number of bics
+7
+Average number of columns
+3.142857142857143
+Standard deviation of columns
+0.8329931278350429
+Average number of rows
+29.285714285714285
+Standard deviation of rows
+13.487711716482481
+Average Information Gain
+0.10967862783189444
+Standard deviation of Information Gain
+0.10326182171937351
+Average Gini Index
+0.03755881622907644
+Standard deviation of Gini Index
+0.04232411701735956
+Average Chi-Squared
+19.219089680202767
+Standard deviation of Chi-Squared
+21.558949596716882
+Average Lift
+1.4965971237570446
+Standard deviation of Lift
+0.5031414699054731
+Average Standardised Lift
+0.875979066755921
+Standard deviation of Standardised Lift
+0.10365397821136398
+Average Statistical Significance
+0.06469662369597758
+Standard deviation of Statistical Significance
+0.06141926910289121
+
+######################################################
+
+dodecanol |L| = 3 quality = 100%:
+
+Total number of bics
+6
+Average number of columns
+3.0
+Standard deviation of columns
+0.816496580927726
+Average number of rows
+36.333333333333336
+Standard deviation of rows
+16.749792701868152
+Average Information Gain
+0.22107815119538884
+Standard deviation of Information Gain
+0.13045611973406804
+Average Gini Index
+0.06719433897527384
+Standard deviation of Gini Index
+0.038366026957180686
+Average Chi-Squared
+34.44638281889077
+Standard deviation of Chi-Squared
+20.351773794117776
+Average Lift
+1.9449478699108678
+Standard deviation of Lift
+0.7476713101049139
+Average Standardised Lift
+0.9226579520697168
+Standard deviation of Standardised Lift
+0.1297577221802793
+Average Statistical Significance
+0.031355177290702155
+Standard deviation of Statistical Significance
+0.061767445606217566
+
+######################################################
+
+dodecanol |L| = 5 quality = 70%:
+
+Total number of bics
+20
+Average number of columns
+2.4
+Standard deviation of columns
+0.8
+Average number of rows
+17.05
+Standard deviation of rows
+7.392394740542471
+Average Information Gain
+0.16485060141440705
+Standard deviation of Information Gain
+0.13132231161820523
+Average Gini Index
+0.034058495011790244
+Standard deviation of Gini Index
+0.030947818179089325
+Average Chi-Squared
+18.34721112487567
+Standard deviation of Chi-Squared
+17.07124730693715
+Average Lift
+2.0503014166131623
+Standard deviation of Lift
+0.8972480412609951
+Average Standardised Lift
+0.9008686424514598
+Standard deviation of Standardised Lift
+0.12412897135839329
+Average Statistical Significance
+0.03753678898256336
+Standard deviation of Statistical Significance
+0.04599514244214085
+
+######################################################
+
+dodecanol |L| = 5 quality = 100%:
+
+Total number of bics
+18
+Average number of columns
+2.1666666666666665
+Standard deviation of columns
+0.37267799624996495
+Average number of rows
+18.5
+Standard deviation of rows
+6.300352723811933
+Average Information Gain
+0.17306662819491458
+Standard deviation of Information Gain
+0.13274040153777264
+Average Gini Index
+0.037165871677881476
+Standard deviation of Gini Index
+0.031044336834073757
+Average Chi-Squared
+20.051660784973997
+Standard deviation of Chi-Squared
+17.14112271399303
+Average Lift
+2.0802069129259255
+Standard deviation of Lift
+0.9139567531330821
+Average Standardised Lift
+0.9083725656868071
+Standard deviation of Standardised Lift
+0.11606245434351843
+Average Statistical Significance
+0.041462704342833695
+Standard deviation of Statistical Significance
+0.0468648186582576
+
+######################################################
+
+dodecanol |L| = 7 quality = 70%:
+
+Total number of bics
+24
+Average number of columns
+2.6666666666666665
+Standard deviation of columns
+0.6236095644623235
+Average number of rows
+12.083333333333334
+Standard deviation of rows
+8.205265924324992
+Average Information Gain
+0.19728295369596038
+Standard deviation of Information Gain
+0.12195721237800879
+Average Gini Index
+0.031601068485523014
+Standard deviation of Gini Index
+0.027112059042433988
+Average Chi-Squared
+17.180971323132454
+Standard deviation of Chi-Squared
+14.765436876370968
+Average Lift
+2.4533372262515383
+Standard deviation of Lift
+0.9691743351049786
+Average Standardised Lift
+0.921125909633974
+Standard deviation of Standardised Lift
+0.13339237116261707
+Average Statistical Significance
+0.03204220938704655
+Standard deviation of Statistical Significance
+0.04415656899558841
+
+######################################################
+
+dodecanol |L| = 7 quality = 100%:
+
+Total number of bics
+25
+Average number of columns
+2.72
+Standard deviation of columns
+0.6013318551349164
+Average number of rows
+11.64
+Standard deviation of rows
+8.192093749463565
+Average Information Gain
+0.19948331311876324
+Standard deviation of Information Gain
+0.1199567930804877
+Average Gini Index
+0.030615169791341486
+Standard deviation of Gini Index
+0.026531769876199807
+Average Chi-Squared
+16.715782001889323
+Standard deviation of Chi-Squared
+14.452226007073271
+Average Lift
+2.518297808586837
+Standard deviation of Lift
+1.0031652666646038
+Average Standardised Lift
+0.9242808732486151
+Standard deviation of Standardised Lift
+0.13160803465914606
+Average Statistical Significance
+0.031193913272618112
+Standard deviation of Statistical Significance
+0.043462977469250264
+
+

@@ -1,0 +1,233 @@
+WPBC |L| = 3 quality = 70%:
+
+Total number of bics
+59
+Average number of columns
+2.389830508474576
+Standard deviation of columns
+0.7368496650604799
+Average number of rows
+10.05084745762712
+Standard deviation of rows
+1.4072900850608183
+Average Information Gain
+0.05432592899817309
+Standard deviation of Information Gain
+0.07017405782051458
+Average Gini Index
+0.022290247531402973
+Standard deviation of Gini Index
+0.026700355276152492
+Average Chi-Squared
+2.1851626881173423
+Standard deviation of Chi-Squared
+2.4931020433724846
+Average Lift
+1.2014377485341095
+Standard deviation of Lift
+0.27450393503651993
+Average Standardised Lift
+0.7241038622394554
+Standard deviation of Standardised Lift
+0.19189836017704429
+Average Statistical Significance
+0.08698943153767058
+Standard deviation of Statistical Significance
+0.07696340912465768
+
+#######################################################
+
+WPBC |L| = 3 quality = 100%:
+
+Total number of bics
+56
+Average number of columns
+2.375
+Standard deviation of columns
+0.8142152225127142
+Average number of rows
+9.803571428571429
+Standard deviation of rows
+1.3285282251039905
+Average Information Gain
+0.052142695843628
+Standard deviation of Information Gain
+0.058079055602358216
+Average Gini Index
+0.02149126702815442
+Standard deviation of Gini Index
+0.022928912939379008
+Average Chi-Squared
+2.121621140031972
+Standard deviation of Chi-Squared
+2.1620689936699935
+Average Lift
+1.1770596139481437
+Standard deviation of Lift
+0.28999509321041306
+Average Standardised Lift
+0.7123634302205731
+Standard deviation of Standardised Lift
+0.21433778833257836
+Average Statistical Significance
+0.08879691275836318
+Standard deviation of Statistical Significance
+0.07612622227201879
+
+#######################################################
+
+WPBC |L| = 5 quality = 70%:
+
+Total number of bics
+54
+Average number of columns
+2.4814814814814814
+Standard deviation of columns
+1.013624606178075
+Average number of rows
+6.166666666666667
+Standard deviation of rows
+1.21335164821342
+Average Information Gain
+0.050963127225954634
+Standard deviation of Information Gain
+0.07295511459980647
+Average Gini Index
+0.015393099078451508
+Standard deviation of Gini Index
+0.019995251060671765
+Average Chi-Squared
+1.4935520943689602
+Standard deviation of Chi-Squared
+1.880827829074521
+Average Lift
+1.250211510714411
+Standard deviation of Lift
+0.3569625997408254
+Average Standardised Lift
+0.7295194003527338
+Standard deviation of Standardised Lift
+0.16939369208045274
+Average Statistical Significance
+0.04044194535971891
+Standard deviation of Statistical Significance
+0.046801780709076035
+
+#######################################################
+
+WPBC |L| = 5 quality = 100%:
+
+Total number of bics
+50
+Average number of columns
+2.56
+Standard deviation of columns
+1.0423051376636308
+Average number of rows
+6.08
+Standard deviation of rows
+1.092520022699813
+Average Information Gain
+0.036546728694379485
+Standard deviation of Information Gain
+0.04808520093168318
+Average Gini Index
+0.01143163244413457
+Standard deviation of Gini Index
+0.013677798031455397
+Average Chi-Squared
+1.1179338500584381
+Standard deviation of Chi-Squared
+1.2940902366326335
+Average Lift
+1.190858739654772
+Standard deviation of Lift
+0.26474883715393965
+Average Standardised Lift
+0.6991428571428571
+Standard deviation of Standardised Lift
+0.17128218617704327
+Average Statistical Significance
+0.03924666307486183
+Standard deviation of Statistical Significance
+0.0462698570639913
+
+#######################################################
+
+WPBC |L| = 7 quality = 70%:
+
+Total number of bics
+102
+Average number of columns
+2.9411764705882355
+Standard deviation of columns
+1.426799032331482
+Average number of rows
+3.6666666666666665
+Standard deviation of rows
+0.9633818428657448
+Average Information Gain
+0.07824543648373945
+Standard deviation of Information Gain
+0.11734884298185942
+Average Gini Index
+0.015545995786576049
+Standard deviation of Gini Index
+0.023582326209480087
+Average Chi-Squared
+1.8702632715266467
+Standard deviation of Chi-Squared
+3.012273429138659
+Average Lift
+1.301927861633482
+Standard deviation of Lift
+0.9277489680060729
+Average Standardised Lift
+0.6205882352941177
+Standard deviation of Standardised Lift
+0.27629844453023433
+Average Statistical Significance
+0.04840727635854729
+Standard deviation of Statistical Significance
+0.059932325486890446
+
+#######################################################
+
+WPBC |L| = 7 quality = 100%:
+
+Total number of bics
+96
+Average number of columns
+2.8229166666666665
+Standard deviation of columns
+1.0703853634971328
+Average number of rows
+3.5625
+Standard deviation of rows
+0.8267972847076845
+Average Information Gain
+0.0739842462501188
+Standard deviation of Information Gain
+0.10818760709440275
+Average Gini Index
+0.014600765372336762
+Standard deviation of Gini Index
+0.02186711410778806
+Average Chi-Squared
+1.72395656197053
+Standard deviation of Chi-Squared
+2.652897932890194
+Average Lift
+1.2524464011846483
+Standard deviation of Lift
+0.8136790820237562
+Average Standardised Lift
+0.6168402777777778
+Standard deviation of Standardised Lift
+0.2731153304889181
+Average Statistical Significance
+0.05011458982404516
+Standard deviation of Statistical Significance
+0.060748392023183426
+
+

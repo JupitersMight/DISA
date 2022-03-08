@@ -1,0 +1,238 @@
+Elec |L| = 3 quality = 70%:
+
+Total number of bics
+3
+Average number of columns
+3.3333333333333335
+Standard deviation of columns
+1.247219128924647
+Average number of rows
+9.0
+Standard deviation of rows
+4.320493798938574
+Average Information Gain
+0.069995524055356
+Standard deviation of Information Gain
+0.056045236633206895
+Average Gini Index
+0.010308769177903762
+Standard deviation of Gini Index
+0.00336240605207886
+Average Chi-Squared
+2.696887583963059
+Standard deviation of Chi-Squared
+0.883172327697732
+Average Lift
+1.6435040055729708
+Standard deviation of Lift
+0.26178080266194004
+Average Standardised Lift
+0.7555555555555555
+Standard deviation of Standardised Lift
+0.17497795275581798
+Average Statistical Significance
+0.05354061582055858
+Standard deviation of Statistical Significance
+0.0368638431649928
+
+###################################################
+
+
+Elec |L| = 3 quality = 100%:
+
+Total number of bics
+3
+Average number of columns
+3.3333333333333335
+Standard deviation of columns
+1.247219128924647
+Average number of rows
+9.0
+Standard deviation of rows
+4.320493798938574
+Average Information Gain
+0.069995524055356
+Standard deviation of Information Gain
+0.056045236633206895
+Average Gini Index
+0.010308769177903762
+Standard deviation of Gini Index
+0.00336240605207886
+Average Chi-Squared
+2.696887583963059
+Standard deviation of Chi-Squared
+0.883172327697732
+Average Lift
+1.6435040055729708
+Standard deviation of Lift
+0.26178080266194004
+Average Standardised Lift
+0.7555555555555555
+Standard deviation of Standardised Lift
+0.17497795275581798
+Average Statistical Significance
+0.05354061582055858
+Standard deviation of Statistical Significance
+0.0368638431649928
+
+###################################################
+
+Elec |L| = 5 quality = 70%:
+
+Total number of bics
+8
+Average number of columns
+2.875
+Standard deviation of columns
+0.7806247497997998
+Average number of rows
+7.625
+Standard deviation of rows
+3.07967124868873
+Average Information Gain
+0.02687299701442832
+Standard deviation of Information Gain
+0.016183827971618936
+Average Gini Index
+0.005150330470721404
+Standard deviation of Gini Index
+0.0035318781561151738
+Average Chi-Squared
+1.4494321701630175
+Standard deviation of Chi-Squared
+0.9698769428739817
+Average Lift
+0.9237863511092576
+Standard deviation of Lift
+0.3802802241556947
+Average Standardised Lift
+0.41492673992673995
+Standard deviation of Standardised Lift
+0.19441508404890137
+Average Statistical Significance
+0.07565182211847672
+Standard deviation of Statistical Significance
+0.06085316440120956
+
+###################################################
+
+Elec |L| = 5 quality = 100%:
+Total number of bics
+8
+Average number of columns
+2.875
+Standard deviation of columns
+0.7806247497997998
+Average number of rows
+7.125
+Standard deviation of rows
+2.9764702249476644
+Average Information Gain
+0.0321690342773292
+Standard deviation of Information Gain
+0.024515971627589915
+Average Gini Index
+0.0056212775344103745
+Standard deviation of Gini Index
+0.004392179842692398
+Average Chi-Squared
+1.5733151561453849
+Standard deviation of Chi-Squared
+1.1785274470594687
+Average Lift
+0.961142672948338
+Standard deviation of Lift
+0.45009393852963886
+Average Standardised Lift
+0.4315934065934066
+Standard deviation of Standardised Lift
+0.2193923431697577
+Average Statistical Significance
+0.07568072723598882
+Standard deviation of Statistical Significance
+0.060817267424765516
+
+###################################################
+
+Elec |L| = 7 quality = 70%:
+
+Total number of bics
+14
+Average number of columns
+2.642857142857143
+Standard deviation of columns
+0.6102859818083951
+Average number of rows
+5.785714285714286
+Standard deviation of rows
+1.4232042032265197
+Average Information Gain
+0.04411104604363769
+Standard deviation of Information Gain
+0.06275847161171527
+Average Gini Index
+0.00657726862168874
+Standard deviation of Gini Index
+0.007089625432725093
+Average Chi-Squared
+1.8821959948100464
+Standard deviation of Chi-Squared
+2.0891309509090417
+Average Lift
+1.092470845506743
+Standard deviation of Lift
+0.6793370695832597
+Average Standardised Lift
+0.4446428571428572
+Standard deviation of Standardised Lift
+0.21342834432957897
+Average Statistical Significance
+0.07157776432583053
+Standard deviation of Statistical Significance
+0.05018205555906563
+
+###################################################
+
+
+Elec |L| = 7 quality = 100%:
+
+Total number of bics
+13
+Average number of columns
+2.5384615384615383
+Standard deviation of columns
+0.49851851526214314
+Average number of rows
+5.6923076923076925
+Standard deviation of rows
+1.2015768732164085
+Average Information Gain
+0.04069671211003127
+Standard deviation of Information Gain
+0.06515945740331147
+Average Gini Index
+0.005905717675902169
+Standard deviation of Gini Index
+0.00737263028498533
+Average Chi-Squared
+1.7152996375952905
+Standard deviation of Chi-Squared
+2.182607193586311
+Average Lift
+1.0147979401827525
+Standard deviation of Lift
+0.6609494545487296
+Average Standardised Lift
+0.4115384615384616
+Standard deviation of Standardised Lift
+0.1962669357257396
+Average Statistical Significance
+0.06857106233196365
+Standard deviation of Statistical Significance
+0.0508466620633744
+
+
+
+
+
+

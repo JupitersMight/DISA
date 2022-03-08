@@ -98,7 +98,7 @@ class DISA:
             intervals = None
             if outcome["type"] == "Numerical":
                 outcome_to_assess = 1
-                intervals = self.handle_numerical_outcome(x_space)
+                intervals = self.handle_numerical_outcome(x_space,i)
                 c1 = 0
                 for value in outcome["values"]:
                     if intervals[0] <= float(value) <= intervals[1]:
@@ -123,13 +123,10 @@ class DISA:
                     discriminative_unique_class = 0
                     for unique_class in self.unique_classes:
                         testY = len(outcome["values"][outcome["values"] == unique_class])
-                        omega = max(Cx + testY - 1, 1 / self.size_of_dataset)
-                        v = 1 / max(Cx, testY)
                         testXY = len(x_space[x_space == unique_class])
                         if testXY == 0:
                             continue
-                        lift_of_pattern = testXY / (Cx * testY)
-                        curr_lift = (lift_of_pattern - omega) / (v - omega)
+                        curr_lift = (testXY / (Cx * testY)) * self.size_of_dataset
                         if curr_lift > maxLift:
                             maxLift = curr_lift
                             discriminative_unique_class = unique_class
@@ -342,7 +339,12 @@ class DISA:
             for metric in list(dict[0].keys()):
                 line = [metric]
                 for x in range(len(self.patterns)):
-                    line.append(str(dict[x][metric]))
+                    temp = round(dict[x][metric], 2)
+                    if temp == 0.00:
+                        temp = '{:0.2e}'.format(dict[x][metric])
+                        if float(temp) == 0.00:
+                            temp = round(dict[x][metric], 2)
+                    line.append(str(temp))
                 t.add_row(line)
             print(t)
 
@@ -486,7 +488,7 @@ class DISA:
         metric : float
             Standardized lift of subspace
         """
-        omega = max(self.patterns[i]["X"] + self.patterns[i]["Y"] - 1, 1/self.size_of_dataset)
+        omega = max(self.patterns[i]["X"] + self.patterns[i]["Y"] - 1, 1/self.size_of_dataset)/(self.patterns[i]["X"] * self.patterns[i]["Y"])
         v = 1 / max(self.patterns[i]["X"], self.patterns[i]["Y"])
         return (self.lift(i)-omega)/(v-omega)
 
@@ -1211,7 +1213,10 @@ class DISA:
         metric : float
             Weighted confidence of subspace
         """
-        return self.Wsup_rule(i) / self.Wsup_pattern(i)
+        if self.Wsup_pattern(i) == 0:
+            return math.inf
+        else:
+            return self.Wsup_rule(i) / self.Wsup_pattern(i)
 
     def WLift(self, i):
         """ Calculates weighted lift of a given subspace
@@ -1225,7 +1230,10 @@ class DISA:
         metric : float
             Weighted lift of subspace
         """
-        return self.Wsup_rule(i) / (self.Wsup_pattern(i) * self.patterns[i]["Y"])
+        if self.Wsup_pattern(i) == 0:
+            return math.inf
+        else:
+            return self.Wsup_rule(i) / (self.Wsup_pattern(i) * self.patterns[i]["Y"])
 
     def Tsig(self, i):
         """ Calculates the statistical significance of a given subspace
@@ -1302,12 +1310,14 @@ class DISA:
         metric : float
             FleBiC score of subspace
         """
+        if self.Wsup_pattern(i) == 0:
+            return math.inf
         part1 = 0.6 * 0.7 * ((self.Wsup_rule(i)/self.Wsup_pattern(i)) * (self.patterns[i]["Y"]/self.size_of_dataset) + 0.3 * self.chi_squared(i))
         part2 = 0.3 * 0.5 * ((self.Wsup_rule(i)/self.size_of_dataset) * (self.patterns[i]["Y"]/self.size_of_dataset) + 0.5 * (self.patterns[i]["nr_cols"]/len(self.data.columns)))
         part3 = 0.1 * self.quality_of_pattern(i)
         return self.Tsig(i) * (part1 + part2 + part3)
 
-    def handle_numerical_outcome(self, x_space):
+    def handle_numerical_outcome(self, x_space, i):
         """ Calculated the interception point between the gaussian curve of outcome variable and outcome variable described by the subspace
 
         Parameters
@@ -1325,12 +1335,16 @@ class DISA:
         std1 = x_space.map(float).std()
         std2 = self.y_column.map(float).std()
 
-        # Solve for a gaussian
-        a= -1/(std1**2) + 1/(std2**2)
-        b= 2*(-m2/(std2**2) + m1/(std1**2))
-        c= (m2**2)/(std2**2) - (m1**2)/(std1**2) + np.log((std2**2)/(std1**2))
-        intercep_points = np.roots([a, b, c])
-        idxs = sorted(intercep_points)
+        if std1 == 0:
+            idxs = [m1,m1]
+        else:
+            # Solve for a gaussian
+            a= -1/(std1**2) + 1/(std2**2)
+            b= 2*(-m2/(std2**2) + m1/(std1**2))
+            c= (m2**2)/(std2**2) - (m1**2)/(std1**2) + np.log((std2**2)/(std1**2))
+            intercep_points = np.roots([a, b, c])
+            idxs = sorted(intercep_points)
+
         return [idxs[0], idxs[1]]
 
 

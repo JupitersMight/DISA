@@ -1,0 +1,231 @@
+liver |L| = 3 quality = 70%:
+
+Total number of bics
+7
+Average number of columns
+2.5714285714285716
+Standard deviation of columns
+0.7284313590846836
+Average number of rows
+42.0
+Standard deviation of rows
+19.992855866891198
+Average Information Gain
+0.010341158133110415
+Standard deviation of Information Gain
+0.013735052510878523
+Average Gini Index
+0.0033300597142655575
+Standard deviation of Gini Index
+0.00439130841593351
+Average Chi-Squared
+2.725705440750407
+Standard deviation of Chi-Squared
+3.5689117598106113
+Average Lift
+1.1085519083366253
+Standard deviation of Lift
+0.08664065757655903
+Average Standardised Lift
+0.7853546039881444
+Standard deviation of Standardised Lift
+0.05358902612120963
+Average Statistical Significance
+0.0948060839783601
+Standard deviation of Statistical Significance
+0.10752621128679093
+
+#######################################################
+
+liver |L| = 3 quality = 100%:
+
+Total number of bics
+7
+Average number of columns
+2.5714285714285716
+Standard deviation of columns
+0.7284313590846836
+Average number of rows
+42.0
+Standard deviation of rows
+19.992855866891198
+Average Information Gain
+0.010341158133110415
+Standard deviation of Information Gain
+0.013735052510878523
+Average Gini Index
+0.0033300597142655575
+Standard deviation of Gini Index
+0.00439130841593351
+Average Chi-Squared
+2.725705440750407
+Standard deviation of Chi-Squared
+3.5689117598106113
+Average Lift
+1.1085519083366253
+Standard deviation of Lift
+0.08664065757655903
+Average Standardised Lift
+0.7853546039881444
+Standard deviation of Standardised Lift
+0.05358902612120963
+Average Statistical Significance
+0.0948060839783601
+Standard deviation of Statistical Significance
+0.10752621128679093
+
+#######################################################
+
+liver |L| = 5 quality = 70%:
+
+Total number of bics
+8
+Average number of columns
+2.25
+Standard deviation of columns
+0.4330127018922193
+Average number of rows
+20.875
+Standard deviation of rows
+10.092540562217225
+Average Information Gain
+0.019394279518636977
+Standard deviation of Information Gain
+0.013069713025222229
+Average Gini Index
+0.0033176986648628653
+Standard deviation of Gini Index
+0.002384055234542383
+Average Chi-Squared
+2.368249234472838
+Standard deviation of Chi-Squared
+1.6140500957005568
+Average Lift
+1.1857094014521499
+Standard deviation of Lift
+0.28650347476796234
+Average Standardised Lift
+0.6903791022386848
+Standard deviation of Standardised Lift
+0.175793551831262
+Average Statistical Significance
+0.05040311659006625
+Standard deviation of Statistical Significance
+0.03436720738171488
+
+#######################################################
+
+liver |L| = 5 quality = 100%:
+
+Total number of bics
+8
+Average number of columns
+2.25
+Standard deviation of columns
+0.4330127018922193
+Average number of rows
+20.875
+Standard deviation of rows
+10.092540562217225
+Average Information Gain
+0.019394279518636977
+Standard deviation of Information Gain
+0.013069713025222229
+Average Gini Index
+0.0033176986648628653
+Standard deviation of Gini Index
+0.002384055234542383
+Average Chi-Squared
+2.368249234472838
+Standard deviation of Chi-Squared
+1.6140500957005568
+Average Lift
+1.1857094014521499
+Standard deviation of Lift
+0.28650347476796234
+Average Standardised Lift
+0.6903791022386848
+Standard deviation of Standardised Lift
+0.175793551831262
+Average Statistical Significance
+0.05040311659006625
+Standard deviation of Statistical Significance
+0.03436720738171488
+
+#######################################################
+
+liver |L| = 7 quality = 70%:
+
+Total number of bics
+16
+Average number of columns
+2.4375
+Standard deviation of columns
+0.49607837082461076
+Average number of rows
+8.75
+Standard deviation of rows
+4.100304866714182
+Average Information Gain
+0.06362502116197358
+Standard deviation of Information Gain
+0.077671561369302
+Average Gini Index
+0.0044590900015948915
+Standard deviation of Gini Index
+0.0038012368233531946
+Average Chi-Squared
+3.3133636355821148
+Standard deviation of Chi-Squared
+2.986510289119941
+Average Lift
+1.7001227915023676
+Standard deviation of Lift
+0.7596983627968203
+Average Standardised Lift
+0.8069378538128538
+Standard deviation of Standardised Lift
+0.13804457798265043
+Average Statistical Significance
+0.037863993089219866
+Standard deviation of Statistical Significance
+0.031136612677757625
+
+#######################################################
+
+liver |L| = 7 quality = 100%:
+
+Total number of bics
+16
+Average number of columns
+2.4375
+Standard deviation of columns
+0.49607837082461076
+Average number of rows
+8.75
+Standard deviation of rows
+4.100304866714182
+Average Information Gain
+0.06362502116197358
+Standard deviation of Information Gain
+0.077671561369302
+Average Gini Index
+0.0044590900015948915
+Standard deviation of Gini Index
+0.0038012368233531946
+Average Chi-Squared
+3.3133636355821148
+Standard deviation of Chi-Squared
+2.986510289119941
+Average Lift
+1.7001227915023676
+Standard deviation of Lift
+0.7596983627968203
+Average Standardised Lift
+0.8069378538128538
+Standard deviation of Standardised Lift
+0.13804457798265043
+Average Statistical Significance
+0.037863993089219866
+Standard deviation of Statistical Significance
+0.031136612677757625
