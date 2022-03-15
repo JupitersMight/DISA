@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="DISA",
-    version="0.0.1",
+    version="0.0.2",
     author="L. Alexandre, R.S. Costa, R. Henriques",
     author_email="leonardoalexandre@tecnico.ulisboa.pt",
     description="A library used to assess the informative and discriminative properties of subspaces/patterns",
