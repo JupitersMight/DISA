@@ -4,7 +4,7 @@ DISA (**D**iscriminative and **I**nformative **S**ubspace **A**nalysis), a softw
 
 ## Examples
 
-Two examples on how to use DISA are provided in the folder "Example", one using the yeast dataset the other using the WPBC dataset. Inside each of the datasets corresponding folder you will find a set of files and a folder. The python and jupyter notebook files provide the code to analyse patterns using DISA. The patterns are contained in the .txt files and the processed datasets in both the .csv and .arff files.
+Four examples on how to use DISA are provided in the folder "Example", the Echocardiogram, the Liver Disorders, the Breast Cancer Wisconsin (diagnostic), and Dodecanol datasets. Inside each of the datasets corresponding folder you will find a set of files and a folder. The python and jupyter notebook files provide the code to analyse patterns using DISA. The patterns are contained in the .txt files and the processed datasets in both the .csv and .arff files.
 
 ## Metrics
 
