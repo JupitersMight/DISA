@@ -5,10 +5,8 @@ Summary: A library used to assess the informative and discriminative properties 
 Home-page: https://github.com/JupitersMight/DISA
 Author: L. Alexandre, R.S. Costa, R. Henriques
 Author-email: leonardoalexandre@tecnico.ulisboa.pt
-License: UNKNOWN
 Project-URL: Bug Tracker, https://github.com/JupitersMight/DI2/issues
 Keywords: multi-item discretization,prior-free discretization,heterogeneous biological data,data mining
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -141,5 +139,3 @@ FleBiC Score: https://doi.org/10.1016/j.patcog.2021.107900
 DISA was developed by:
 
 L. Alexandre (leonardoalexandre@tecnico.ulisboa.pt), R.S. Costa (rs.costa@fct.unl.pt) and R. Henriques
-
-

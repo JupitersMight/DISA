@@ -80,7 +80,7 @@ def retrive_patterns(file):
 
 
 def stats(data, patterns, class_information):
-    discriminative_scores = DISA(data, patterns, class_information).assess_patterns(print_table=True)
+    discriminative_scores = DISA(data, patterns, class_information).assess_patterns()
 
     information_gain = []
     gini_index = []

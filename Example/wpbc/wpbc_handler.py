@@ -13,15 +13,30 @@ for index in range(len(csvs)):
     class_information = {
         "values": data["time"],
         "outcome_value": 1,
-        "type": "Numerical"
+        "type": "Numerical",
+        "method": "empirical"
     }
+
+
     data = data.drop(columns=["time"])
+    print("################################# Empirical #########################################")
+    print("#################################### 70% ############################################")
+    patterns = retrive_patterns(results_70[index])
+    stats(data, patterns, class_information)
+
+    print("#################################### 100% ############################################")
+    patterns = retrive_patterns(results_100[index])
+    stats(data, patterns, class_information)
+
+    class_information["method"] = "gaussian"
+    print("################################# Gaussian ##########################################")
     print("#################################### 70% ############################################")
     patterns = retrive_patterns(results_70[index])
     stats(data, patterns, class_information)
     print("#################################### 100% ############################################")
     patterns = retrive_patterns(results_100[index])
     stats(data, patterns, class_information)
+
 
 bins = [3,5,7]
 
@@ -39,4 +54,5 @@ for index in range(len(csvs)):
     print("#################################### 100% ############################################")
     patterns = retrive_patterns(results_100[index])
     stats(data, patterns, class_information)
+
 

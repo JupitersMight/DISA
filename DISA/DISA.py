@@ -2,8 +2,12 @@ import pandas as pd
 import numpy as np
 import math
 from scipy.stats import hypergeom
+from scipy.stats import norm
 from prettytable import PrettyTable
 from scipy.special import betainc
+import matplotlib.pyplot as plt
+import os
+import scipy
 
 
 class DISA:
@@ -14,7 +18,7 @@ class DISA:
         ----------
         data : pandas.Dataframe
         patterns : list
-            [x] : dict, where x can represent any position of the list
+            [i] : dict
                 "lines" : list (mandatory)
                 "columns" : list (mandatory)
                 "column_values": list (optional)
@@ -25,25 +29,52 @@ class DISA:
             "values": pandas.Series
             "outcome_value" : int
             "type": string
-        border_values : boolean (default=False)
+            "method": string
+            "heuristic": boolean
+
+        output_configurations : dict
+            "print_table" : boolean
+            "file_path_table" : string
+            "show_plots" : boolean
+            "file_path_plots" : string
+            "print_numeric_intervals" : boolean
+            "file_path_numeric_intervals" : string
 
 
         Class Attributes
         ----------------
         border_values : boolean
         data : pandas.Dataframe
-        size_of_dataset : int
-        y_column : pandas.Series
+        file_path_numeric_intervals : string
+        file_path_plots : string
+        file_path_table : string
         outcome_type : string
         patterns : dict
             Contains all the auxiliary information needed by the metrics
+        print_numeric_intervals : boolean
+        print_table : boolean
+        show_plots : boolean
+        size_of_dataset : int
+        unique_classes : list
+            If input is categorical contains the unique classes within the y_column
+        y_column : pandas.Series
     """
-    def __init__(self, data, patterns, outcome, border_values=False):
-        self.border_values = border_values
+    def __init__(self, data, patterns, outcome, output_configurations=None):
+        # Setup default output configuration in case user didn't input it
+        self.print_table = output_configurations["print_table"] if output_configurations is not None and "print_table" in output_configurations.keys() else True
+        self.file_path_table = output_configurations["file_path_table"] if output_configurations is not None and "file_path_table" in output_configurations.keys() else None
+        self.show_plots = output_configurations["show_plots"] if output_configurations is not None and "show_plots" in output_configurations.keys() else False
+        self.file_path_plots = output_configurations["file_path_plots"] if output_configurations is not None and "file_path_plots" in output_configurations.keys() else None
+        self.print_numeric_intervals = output_configurations["print_numeric_intervals"] if output_configurations is not None and "print_numeric_intervals" in output_configurations.keys() else False
+        self.file_path_numeric_intervals = output_configurations["file_path_numeric_intervals"] if output_configurations is not None and "file_path_numeric_intervals" in output_configurations.keys() else None
+
+        # Set up default parameters
+        self.border_values = outcome["border_values"] if "border_values" in outcome.keys() else False
         self.data = data
         self.size_of_dataset = len(outcome["values"])
         self.y_column = outcome["values"]
         self.outcome_type = outcome["type"]
+        self.heuristic = outcome["heuristic"] if "heuristic" in outcome.keys() else False
 
         self.y_value = outcome["outcome_value"] if "outcome_value" in list(outcome.keys()) else None
         # Check if numerical to binarize or categorical to determine the categories
@@ -98,23 +129,26 @@ class DISA:
             intervals = None
             if outcome["type"] == "Numerical":
                 outcome_to_assess = 1
-                intervals = self.handle_numerical_outcome(x_space,i)
+                intervals = self.handle_numerical_outcome(x_space, (outcome["method"] if "method" in outcome.keys() else "gaussian"), i)
                 c1 = 0
                 for value in outcome["values"]:
-                    if intervals[0] <= float(value) <= intervals[1]:
-                        c1 += 1
+                    for interval in intervals:
+                        if interval[0] <= float(value) <= interval[1]:
+                            c1 += 1
                 Cy = c1
                 C_y = self.size_of_dataset - Cy
                 c1 = 0
                 for value in x_space:
-                    if intervals[0] <= float(value) <= intervals[1]:
-                        c1 += 1
+                    for interval in intervals:
+                        if interval[0] <= float(value) <= interval[1]:
+                            c1 += 1
                 Cxy = c1
                 Cx_y = len(x_space) - Cxy
                 c1 = 0
                 for value in _x_space:
-                    if intervals[0] <= float(value) <= intervals[1]:
-                        c1 += 1
+                    for interval in intervals:
+                        if interval[0] <= float(value) <= interval[1]:
+                            c1 += 1
                 C_xy = c1
                 C_x_y = len(_x_space) - C_xy
             else:
@@ -137,7 +171,7 @@ class DISA:
                 C_xy = len(_x_space[_x_space == outcome_to_assess])
                 Cx_y = len(x_space) - len(x_space[x_space == outcome_to_assess])
                 C_x_y = len(_x_space) - len(_x_space[_x_space == outcome_to_assess])
-                if border_values:
+                if self.border_values:
                     Cy += len(outcome["values"][outcome["values"] == outcome_to_assess-0.5]) \
                      + len(outcome["values"][outcome["values"] == outcome_to_assess+0.5])
                     Cxy += len(x_space[x_space == outcome_to_assess-0.5]) \
@@ -190,7 +224,7 @@ class DISA:
                 "_X_Y": _X_Y
             })
 
-    def assess_patterns(self, print_table=False):
+    def assess_patterns(self):
         """
         Executes all the subspace metrics for the inputted patterns
 
@@ -331,7 +365,18 @@ class DISA:
                 "Statistical Significance": Tsig,
                 "FleBiC Score": FleBiC_score
             })
-        if print_table:
+        if self.file_path_numeric_intervals is not None:
+            for i in range(len(self.patterns)):
+                if os.path.isfile(self.file_path_numeric_intervals+str(i)+'.txt'):
+                    file = open(self.file_path_numeric_intervals+str(i)+'.txt', "w")
+                else:
+                    file = open(self.file_path_numeric_intervals+str(i)+'.txt', "x")
+                file.write("P"+str(i)+": "+str(self.patterns[i]["outcome_intervals"])+"\n")
+                file.close()
+        if self.print_numeric_intervals:
+            for i in range(len(self.patterns)):
+                print("P"+ str(i)+ ": "+ str(self.patterns[i]["outcome_intervals"]))
+        if self.print_table:
             columns = ['Metric']
             for i in range(len(self.patterns)):
                 columns.append('P'+str(i+1))
@@ -339,12 +384,15 @@ class DISA:
             for metric in list(dict[0].keys()):
                 line = [metric]
                 for x in range(len(self.patterns)):
-                    temp = round(dict[x][metric], 2)
-                    if temp == 0.00:
-                        temp = '{:0.2e}'.format(dict[x][metric])
-                        if float(temp) == 0.00:
-                            temp = round(dict[x][metric], 2)
-                    line.append(str(temp))
+                    if is_number(dict[x][metric]):
+                        temp = round(dict[x][metric], 2)
+                        if temp == 0.00:
+                            temp = '{:0.2e}'.format(dict[x][metric])
+                            if float(temp) == 0.00:
+                                temp = round(dict[x][metric], 2)
+                        line.append(str(temp))
+                    else:
+                        line.append(dict[x][metric])
                 t.add_row(line)
             print(t)
 
@@ -369,7 +417,9 @@ class DISA:
         frac_up = one + two + three + four
         frac_down_one = - (self.patterns[i]["X"] * math.log(self.patterns[i]["X"],10) + self.patterns[i]["_X"] * math.log(self.patterns[i]["_X"], 10)) if self.patterns[i]["X"] != 0 and self.patterns[i]["_X"] != 0 else 0
         frac_down_two = - (self.patterns[i]["Y"] * math.log(self.patterns[i]["Y"],10) + self.patterns[i]["_Y"] * math.log(self.patterns[i]["_Y"], 10)) if self.patterns[i]["Y"] != 0 and self.patterns[i]["_Y"] != 0 else 0
-        frac_down = min(frac_down_one,frac_down_two)
+        frac_down = min(frac_down_one, frac_down_two)
+        if frac_down == 0:
+            return 0
         return frac_up / frac_down
 
     def chi_squared(self, i):
@@ -384,6 +434,8 @@ class DISA:
         metric : float
             Chi-squared test statistic of subspace
         """
+        if self.patterns[i]["C_y"] == 0:
+            return 0
         one=((self.patterns[i]["Cxy"]-(self.patterns[i]["Cx"]*self.patterns[i]["Cy"]/self.size_of_dataset))**2)/(self.patterns[i]["Cx"]*self.patterns[i]["Cy"]/self.size_of_dataset)
         two=((self.patterns[i]["C_xy"]-(self.patterns[i]["C_x"]*self.patterns[i]["Cy"]/self.size_of_dataset))**2)/(self.patterns[i]["C_x"]*self.patterns[i]["Cy"]/self.size_of_dataset)
         three=((self.patterns[i]["Cx_y"]-(self.patterns[i]["Cx"]*self.patterns[i]["C_y"]/self.size_of_dataset))**2)/(self.patterns[i]["Cx"]*self.patterns[i]["C_y"]/self.size_of_dataset)
@@ -418,6 +470,8 @@ class DISA:
         metric : float
             Difference in support of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         return abs((self.patterns[i]["XY"]/self.patterns[i]["Y"]) - (self.patterns[i]["X_Y"]/self.patterns[i]["_Y"]))
 
     def bigger_sup(self, i):
@@ -432,6 +486,8 @@ class DISA:
         metric : float
             Bigger support of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         return max((self.patterns[i]["XY"]/self.patterns[i]["Y"]), (self.patterns[i]["X_Y"]/self.patterns[i]["_Y"]))
 
     def confidence(self, i):
@@ -616,6 +672,8 @@ class DISA:
         metric : float
             Certainty factor metric of a given subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         return ((self.patterns[i]["XY"] / self.patterns[i]["X"]) - self.patterns[i]["Y"])/self.patterns[i]["_Y"]
 
     def conviction(self, i):
@@ -817,6 +875,8 @@ class DISA:
         metric : float
             J-Measure of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         a = (self.patterns[i]["XY"]/self.patterns[i]["X"])/self.patterns[i]["Y"]
         if a == 0:
             a = 0
@@ -999,6 +1059,8 @@ class DISA:
         metric : float
             RLD of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         rld = 0
         d = (self.patterns[i]["Cxy"]*self.patterns[i]["C_x_y"])-(self.patterns[i]["Cx_y"]*self.patterns[i]["C_xy"])
 
@@ -1075,6 +1137,8 @@ class DISA:
         metric : float
             Yule's Q of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         return (self.patterns[i]["XY"]*self.patterns[i]["_X_Y"] - self.patterns[i]["X_Y"]*self.patterns[i]["_XY"]) / (self.patterns[i]["XY"]*self.patterns[i]["_X_Y"] + self.patterns[i]["X_Y"]*self.patterns[i]["_XY"])
 
     def yule_y(self, i):
@@ -1089,6 +1153,8 @@ class DISA:
         metric : float
             Yule's Y of subspace
         """
+        if self.patterns[i]["_Y"] == 0:
+            return 0
         return (math.sqrt(self.patterns[i]["XY"] * self.patterns[i]["_X_Y"]) - math.sqrt(self.patterns[i]["X_Y"] * self.patterns[i]["_XY"])) / (math.sqrt(self.patterns[i]["XY"] * self.patterns[i]["_X_Y"]) + math.sqrt(self.patterns[i]["X_Y"] * self.patterns[i]["_XY"]))
 
     def quality_of_pattern(self, i):
@@ -1177,8 +1243,9 @@ class DISA:
                 skip = True
                 if self.outcome_type == "Numerical":
                     intervals = self.patterns[i]["outcome_intervals"]
-                    if intervals[0] <= float(self.y_column[row]) <= intervals[1]:
-                        skip = False
+                    for interval in intervals:
+                        if interval[0] <= float(self.y_column[row]) <= interval[1]:
+                            skip = False
                 else:
                     if float(self.y_column[row]) == self.patterns[i]["outcome_to_assess"]:
                         skip = False
@@ -1317,7 +1384,134 @@ class DISA:
         part3 = 0.1 * self.quality_of_pattern(i)
         return self.Tsig(i) * (part1 + part2 + part3)
 
-    def handle_numerical_outcome(self, x_space, i):
+    def _plots(self, uniques, pattern, outcome, intervals, label_pattern, label_outcome, i):
+        if self.file_path_plots is not None or self.show_plots:
+            plt.plot(uniques, pattern, label=label_pattern)
+            plt.plot(uniques, outcome, label=label_outcome)
+            for interval in intervals:
+
+                for val in interval:
+                    plt.axvline(x=val, color="red", linestyle='--')
+            #plt.ylim(top=0.5)
+            #plt.ylim(bottom=-0.01)
+            plt.legend()
+        if self.file_path_plots is not None:
+            plt.savefig(self.file_path_plots+str(i)+'.png', bbox_inches='tight')
+            plt.close()
+        if self.show_plots:
+            plt.show()
+            plt.close()
+
+    def _min_max_numeric(self, outcome_p):
+        return [[outcome_p.min(), outcome_p.max()]]
+
+    def _average_var(self, outcome_p):
+        m = outcome_p.mean()
+        std = outcome_p.std()
+        return [[m-std, m+std]]
+
+    def _empirical(self, outcome_p, outcome, p_number, heuristic=False):
+        # Get uniques
+        x = []
+        for val in outcome:
+            if val not in x:
+                x.append(val)
+        x.sort()
+        # Get unique counters
+        outcome_p_counters = []
+        outcome_counters = []
+        for i in range(len(x)):
+            outcome_p_counters.append(0)
+            outcome_counters.append(0)
+            for val in outcome_p:
+                if val == x[i]:
+                    outcome_p_counters[i] = outcome_p_counters[i] + 1
+            for val in outcome:
+                if val == x[i]:
+                    outcome_counters[i] = outcome_counters[i] + 1
+
+        #Transform to relative frequency
+        for i in range(len(outcome_counters)):
+            outcome_p_counters[i] = outcome_p_counters[i]/len(outcome_p)
+            outcome_counters[i] = outcome_counters[i]/len(outcome)
+
+        #Get intersection
+        idx = np.argwhere(np.diff(np.sign(np.array(outcome_p_counters) - np.array(outcome_counters)))).flatten().tolist()
+
+        intervals = []
+        if outcome_p_counters[0] > outcome_counters[0]:
+            intervals.append([-math.inf, x[idx[0]]])
+            del idx[0]
+        if outcome_p_counters[-1] > outcome_counters[-1]:
+            intervals.append([x[idx[-1]], math.inf])
+            del idx[-1]
+
+        while len(idx) > 0:
+            e1 = x[idx[0]]
+            del idx[0]
+            e2 = x[idx[0]]
+            del idx[0]
+            intervals.append([e1, e2])
+
+        if self.heuristic:
+            lift_of_intervals = []
+            for interval in intervals:
+                temp_outcome = outcome.copy()
+                temp_pattern = outcome_p.copy()
+                temp_outcome.apply(lambda x: 1 if interval[0] <= x <= interval[1] else 0)
+                temp_pattern.apply(lambda x: 1 if interval[0] <= x <= interval[1] else 0)
+                lift = (temp_pattern[temp_pattern == 1].size/temp_outcome.size)/((temp_outcome[temp_outcome == 1].size / temp_outcome.size) * (temp_pattern.size/temp_outcome.size))
+                lift_of_intervals.append({"name":interval, "lift":lift})
+            lift_of_intervals = sorted(lift_of_intervals, key=lambda x: x["lift"], reverse=True)
+
+            while True:
+                temp_outcome = outcome.copy()
+                temp_pattern = outcome_p.copy()
+                for val in lift_of_intervals:
+                    temp_outcome.apply(lambda x: 1 if val["name"][0] <= x <= val["name"][1] else 0)
+                    temp_pattern.apply(lambda x: 1 if val["name"][0] <= x <= val["name"][1] else 0)
+                lift = (temp_pattern[temp_pattern == 1].size/temp_outcome.size)/((temp_outcome[temp_outcome == 1].size / temp_outcome.size) * (temp_pattern.size/temp_outcome.size))
+                interval_comb = lift_of_intervals
+                if len(lift_of_intervals) > 0 or lift < 1.3:
+                    break
+                del lift_of_intervals[-1]
+
+            if len(lift_of_intervals) == 0 and lift < 1.3:
+                return intervals
+            else:
+                intervals = []
+                for val in interval_comb:
+                    intervals.append(val["name"])
+                return intervals
+
+        if self.file_path_plots or self.show_plots:
+            self._plots(x, outcome_p_counters, outcome_counters, intervals, "pattern", "outcome", p_number)
+        return intervals
+
+    def _gaussian(self, outcome_p, outcome, i):
+        m1 = outcome_p.mean()
+        m2 = outcome.mean()
+        std1 = outcome_p.std()
+        std2 = outcome.std()
+
+        if std1 == 0:
+            idxs = [m1,m1]
+        else:
+            # Solve for a gaussian
+            a= -1/(std1**2) + 1/(std2**2)
+            b= 2*(-m2/(std2**2) + m1/(std1**2))
+            c= (m2**2)/(std2**2) - (m1**2)/(std1**2) + np.log((std2**2)/(std1**2))
+            intercep_points = np.roots([a, b, c])
+            idxs = sorted(intercep_points)
+
+        if self.show_plots or self.file_path_plots:
+            x = np.arange(-1, 1, 0.001)
+            self._plots(x, norm.pdf(x, m1, std1), norm.pdf(x, m2, std2), [idxs], 'μ:' + str(round(m1, 2)) + ', σ:' + str(round(std1, 2)), 'μ:' + str(round(m2, 2)) + ', σ:' + str(round(std2, 2)), i)
+
+        return [[idxs[0], idxs[1]]]
+
+
+    def handle_numerical_outcome(self, x_space, method, i):
         """ Calculated the interception point between the gaussian curve of outcome variable and outcome variable described by the subspace
 
         Parameters
@@ -1330,22 +1524,16 @@ class DISA:
             [0] : first point of interception
             [1] : second point of interceptiion
         """
-        m1 = x_space.map(float).mean()
-        m2 = self.y_column.map(float).mean()
-        std1 = x_space.map(float).std()
-        std2 = self.y_column.map(float).std()
-
-        if std1 == 0:
-            idxs = [m1,m1]
-        else:
-            # Solve for a gaussian
-            a= -1/(std1**2) + 1/(std2**2)
-            b= 2*(-m2/(std2**2) + m1/(std1**2))
-            c= (m2**2)/(std2**2) - (m1**2)/(std1**2) + np.log((std2**2)/(std1**2))
-            intercep_points = np.roots([a, b, c])
-            idxs = sorted(intercep_points)
-
-        return [idxs[0], idxs[1]]
+        intervals = []
+        if method == "gaussian":
+            intervals = self._gaussian(x_space.map(float), self.y_column.map(float), i)
+        if method == "min_max":
+            intervals = self._min_max_numeric(x_space.map(float))
+        if method == "average":
+            intervals = self._average_var(x_space.map(float))
+        if method == "empirical":
+            intervals = self._empirical(x_space.map(float), self.y_column.map(float), i)
+        return intervals
 
 
 def is_number(s):
