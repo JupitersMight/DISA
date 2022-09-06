@@ -68,6 +68,18 @@ Description of parameters:
 
 Four examples on how to use DISA are provided in the folder "Example", the Echocardiogram, the Liver Disorders, the Breast Cancer Wisconsin (diagnostic), and Dodecanol datasets. Inside each of the datasets corresponding folder you will find a set of files and a folder. The python and jupyter notebook files provide the code to analyse patterns using DISA. The patterns are contained in the .txt files and the processed datasets in both the .csv and .arff files.
 
+## Package dependencies
+
+pandas - 1.4.3
+
+numpy - 1.23.1
+
+scipy - 1.8.1
+
+prettytable - 3.3.0
+
+matplotlib - 3.5.1
+
 ## Metrics
 
 A list of all the implemented metrics in DISA and the corresponding DOI (some but not all of these metrics are futher explained in https://mhahsler.github.io/arules/docs/measures).
