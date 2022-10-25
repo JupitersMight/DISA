@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="DISA",
-    version="0.0.2",
+    name="DISAtool",
+    version="1.0.0",
     author="L. Alexandre, R.S. Costa, R. Henriques",
     author_email="leonardoalexandre@tecnico.ulisboa.pt",
     description="A library used to assess the informative and discriminative properties of subspaces/patterns",
@@ -16,7 +16,7 @@ setuptools.setup(
     project_urls={
         "Bug Tracker": "https://github.com/JupitersMight/DI2/issues",
     },
-    packages=['DISA'],
+    packages=['DISAtool'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
