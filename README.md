@@ -2,9 +2,9 @@
 
 DISA (**D**iscriminative and **I**nformative **S**ubspace **A**nalysis), a software package in Python (v3.7) capable of assessing patterns with numerical outputs by statistically testing the correlation gain of the subspace against the overall space
 
-## Article
+## Please cite
 
-Alexandre, L., Costa, R. S., & Henriques, R. (2022). DISA tool: Discriminative and informative subspace assessment with categorical and numerical outcomes. Plos one, 17(10), e0276253. https://doi.org/10.1371/journal.pone.0276253
+Alexandre, L., Costa, R. S. & Henriques, R. (2022). DISA tool: Discriminative and informative subspace assessment with categorical and numerical outcomes. PLoS ONE, 17(10), e0276253 | doi: https://doi.org/10.1371/journal.pone.0276253
 
 ## Input parameters
 
