@@ -1,6 +1,7 @@
 # DISA
 
 DISA (**D**iscriminative and **I**nformative **S**ubspace **A**nalysis), a software package in Python (v3.7) capable of assessing patterns with numerical outputs by statistically testing the correlation gain of the subspace against the overall space
+To illustrate the DISA properties, one example used was the [dataset](https://pubs.acs.org/doi/pdf/10.1021/acssynbio.9b00020) that monitors the concentration of key enzymes observed in two Design-Build-Test-Learn (DBTL) cycles of 1-dodecanol production in *Escherichia coli*.
 
 ## Please cite
 
